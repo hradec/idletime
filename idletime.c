@@ -27,11 +27,15 @@ int main(int argc, char *argv[]) {
     // put ':' in the starting of the 
     // string so that program can  
     //distinguish between '?' and ':'  
-    while((opt = getopt(argc, argv, "fh:")) != -1){
+    while((opt = getopt(argc, argv, "fh")) != -1){
         switch(opt){
             case 'f':
                 ctype="%f\n";
                 break;
+            case 'h':
+                printf("idletime - display the elapsed time since the last keystroke or mouse movement on an X display\n\n");
+		printf("	-f	display seconds in floating point\n\n");
+                return 0;
         }
     }
     printf(ctype, GetIdleTime());
