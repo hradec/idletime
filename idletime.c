@@ -16,21 +16,22 @@ float GetIdleTime () {
         XScreenSaverQueryInfo(display, RootWindow(display,screen), mit_info);
         idle_time = (mit_info->idle) / 1000.0;
         XFree(mit_info);
-        XCloseDisplay(display); 
+        XCloseDisplay(display);
         return (float)idle_time;
 }
 
 int main(int argc, char *argv[]) {
 
     int opt;
-    char *ctype="%d\n";
+    char buff[512];
     // put ':' in the starting of the 
     // string so that program can  
     //distinguish between '?' and ':'  
+    sprintf(buff, "%d", (int)GetIdleTime());
     while((opt = getopt(argc, argv, "fh")) != -1){
         switch(opt){
             case 'f':
-                ctype="%f\n";
+                sprintf(buff, "%f", GetIdleTime());
                 break;
             case 'h':
                 printf("idletime - display the elapsed time since the last keystroke or mouse movement on an X display\n\n");
@@ -38,5 +39,5 @@ int main(int argc, char *argv[]) {
                 return 0;
         }
     }
-    printf(ctype, GetIdleTime());
+    printf("%s\n", buff);
 }
